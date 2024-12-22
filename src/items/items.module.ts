@@ -5,10 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Item_CategoriesModule } from 'src/Item_Category/Item_Category.module';
 import { CategoiesModule } from 'src/categories/categories.module';
 import { Items } from './items.entity';
-import { ItemRepository } from './items.repository';
 
 @Module({
-  providers: [ItemService, ItemRepository],
+  providers: [ItemService],
   imports: [
     TypeOrmModule.forFeature([Items]),
     Item_CategoriesModule,

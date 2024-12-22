@@ -15,7 +15,6 @@ import { CategoriesResolver } from './categories/category.resolver';
 import { CategoryService } from './categories/categories.service';
 import { Items_CategoriesService } from './Item_Category/Item_Category.service';
 import { Item_CategoriesResolver } from './Item_Category/Item_Category.resolver';
-import { ItemRepository } from './items/items.repository';
 
 @Module({
   imports: [
@@ -39,7 +38,6 @@ import { ItemRepository } from './items/items.repository';
     Item_CategoriesModule,
   ],
   providers: [
-    ItemRepository,
     ItemResolver,
     ItemService,
     CategoriesResolver,

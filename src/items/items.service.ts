@@ -6,13 +6,12 @@ import { Items } from './items.entity';
 import { Items_Categories } from 'src/Item_Category/Item_Category.entity';
 import { categories } from 'src/categories/categories.entity';
 import { Repository } from 'typeorm';
-import { ItemRepository } from './items.repository';
 
 @Injectable()
 export class ItemService {
   constructor(
-    @InjectRepository(ItemRepository)
-    private itemRepository: ItemRepository,
+    @InjectRepository(Items)
+    private itemRepository: Repository<Items>,
   ) {}
   @InjectRepository(Items_Categories)
   private item_CategoryRepository: Repository<Items_Categories>;
