@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/class-name-casing */
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 

@@ -1,14 +1,12 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ItemStatus } from './item-status.enum';
+import { ItemStatus } from './items-status.enum';
 import { CreateItemDto } from './dto/create-item.dto';
-import { ItemRepository } from './items.repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Items } from './item.entity';
-import { Item_CategoryRepository } from '../Item_Category/Item_Category.repository';
+import { Items } from './items.entity';
 import { Items_Categories } from 'src/Item_Category/Item_Category.entity';
 import { categories } from 'src/categories/categories.entity';
 import { Repository } from 'typeorm';
+import { ItemRepository } from './items.repository';
 
 @Injectable()
 export class ItemService {
@@ -16,8 +14,8 @@ export class ItemService {
     @InjectRepository(ItemRepository)
     private itemRepository: ItemRepository,
   ) {}
-  @InjectRepository(Item_CategoryRepository)
-  private item_CategoryRepository: Item_CategoryRepository;
+  @InjectRepository(Items_Categories)
+  private item_CategoryRepository: Repository<Items_Categories>;
   @InjectRepository(categories)
   private categoriesRepository: Repository<categories>;
   private async deleteItems_CategoriesByItemId(
@@ -26,7 +24,7 @@ export class ItemService {
     const found = await this.item_CategoryRepository.find({
       where: { Item_id: id },
     });
-    await found.forEach((element) => {
+    found.forEach((element) => {
       this.item_CategoryRepository.delete(element);
     });
     if (!found || found.length === 0) {
@@ -54,7 +52,8 @@ export class ItemService {
     } else return found;
   }
   async getItems() {
-    const allItems = (await this.itemRepository.find()).filter(
+    console.log(await this.itemRepository.find());
+    const allItems = (await this.itemRepository.find({})).filter(
       (item) => item.Status === ItemStatus.ACTIVE,
     );
     const itemsWithCategories = [];

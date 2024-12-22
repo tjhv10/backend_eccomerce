@@ -2,12 +2,13 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ItemModule } from './items/items.module';
+import { Repository } from 'typeorm';
 import { ApolloDriver } from '@nestjs/apollo';
 import { CategoiesModule } from './categories/categories.module';
 import { Item_CategoriesModule } from './Item_Category/Item_Category.module';
-import { ItemResolver } from './items/item.resolver';
+import { ItemResolver } from './items/items.resolver';
 import { ItemService } from './items/items.service';
-import { Items } from './items/item.entity';
+import { Items } from './items/items.entity';
 import { categories } from './categories/categories.entity';
 import { Items_Categories } from './Item_Category/Item_Category.entity';
 import { CategoriesResolver } from './categories/category.resolver';
@@ -42,11 +43,9 @@ import { ItemRepository } from './items/items.repository';
     ItemResolver,
     ItemService,
     CategoriesResolver,
-    CategoriesResolver,
     CategoryService,
     Item_CategoriesResolver,
     Items_CategoriesService,
-    Item_CategoriesResolver,
   ],
 })
 export class AppModule {}

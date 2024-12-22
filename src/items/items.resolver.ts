@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { ItemService } from './items.service';
-import { ItemStatus } from './item-status.enum';
-import { Items } from './item.entity';
+import { ItemStatus } from './items-status.enum';
+import { Items } from './items.entity';
 
 @Resolver(() => Items)
 export class ItemResolver {

@@ -1,16 +1,14 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { Module } from '@nestjs/common';
 import { Items_CategoriesService } from './Item_Category.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Item_CategoryRepository } from './Item_Category.repository';
+import { Items_Categories } from './Item_Category.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Item_CategoryRepository])],
+  imports: [TypeOrmModule.forFeature([Items_Categories])],
   providers: [Items_CategoriesService],
   exports: [
     Items_CategoriesService,
-    TypeOrmModule.forFeature([Item_CategoryRepository]),
+    TypeOrmModule.forFeature([Items_Categories]),
   ],
 })
-// eslint-disable-next-line @typescript-eslint/class-name-casing
 export class Item_CategoriesModule {}

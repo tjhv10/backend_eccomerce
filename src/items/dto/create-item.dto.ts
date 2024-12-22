@@ -1,4 +1,4 @@
-import { ItemStatus } from '../item-status.enum';
+import { ItemStatus } from '../items-status.enum';
 
 export class CreateItemDto {
   Id: number;

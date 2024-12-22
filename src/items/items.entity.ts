@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { ItemStatus } from './item-status.enum';
+import { ItemStatus } from './items-status.enum';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()

@@ -1,9 +1,5 @@
-/* eslint-disable @typescript-eslint/class-name-casing */
-/* eslint-disable @typescript-eslint/camelcase */
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
-// import { Item_CategoryType } from './item_category.type';
 import { Items_Categories } from './Item_Category.entity';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Items_CategoriesService } from './Item_Category.service';
 
 @Resolver(() => Items_Categories)

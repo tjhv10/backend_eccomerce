@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable @typescript-eslint/class-name-casing */
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { ItemStatus } from './item-status.enum';
+import { ItemStatus } from './items-status.enum';
 
 @ObjectType('Items')
 export class Items {
