@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable @typescript-eslint/class-name-casing */
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { ItemStatus } from './items-status.enum';
 
 @ObjectType('Items')
@@ -8,24 +8,24 @@ export class Items {
   @Field(() => ID)
   Id: number;
 
-  @Field()
+  @Field(() => String)
   Name: string;
 
-  @Field()
+  @Field(() => Date)
   Upload_date: Date;
 
-  @Field()
+  @Field(() => String)
   Description: string;
 
-  @Field()
+  @Field(() => Int)
   Price: number;
 
-  @Field()
+  @Field(() => String)
   Seller_name: string;
 
-  @Field()
+  @Field(() => String)
   Image_url: string;
 
-  @Field()
+  @Field(() => ItemStatus)
   Status: ItemStatus;
 }

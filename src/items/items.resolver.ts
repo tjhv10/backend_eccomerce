@@ -16,6 +16,10 @@ export class ItemResolver {
   getItems() {
     return this.itemService.getItems();
   }
+  @Query(() => Boolean)
+  isIdExist(@Args('id') id: number) {
+    return this.itemService.isIdExist(id);
+  }
   @Mutation(() => Items)
   deleteItems_CategoriesByItemId(@Args('id') id: number) {
     return this.itemService.deleteItem(id);

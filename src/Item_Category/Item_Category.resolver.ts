@@ -13,7 +13,7 @@ export class Item_CategoriesResolver {
       .catch(() => false);
   }
 
-  @Query(() => [Items_Categories])
+  @Query(() => Items_Categories)
   async getItems_CategoriesById(@Args('id') id: number): Promise<boolean> {
     return this.Items_CategoriesService.getItems_CategoriesByItemId(id)
       .then(() => true)

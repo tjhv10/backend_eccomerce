@@ -51,19 +51,24 @@ export class ItemService {
     } else return found;
   }
   async getItems() {
-    console.log(await this.itemRepository.find());
-    const allItems = (await this.itemRepository.find({})).filter(
+    const allItems = (await this.itemRepository.find()).filter(
       (item) => item.Status === ItemStatus.ACTIVE,
     );
-    const itemsWithCategories = [];
-    for (let i = 0; i < allItems.length; i++) {
-      const categories: categories[] = [];
-      const this_item = await this.getItems_CategoriesByItemId(allItems[i].Id);
-      for (let j = 0; j < this_item.length; j++) {
-        categories.push(await this.getCategoryById(this_item[j].Category_id));
-      }
-      itemsWithCategories.push([allItems[i], categories]);
-    }
+
+    const itemsWithCategories = await Promise.all(
+      allItems.map(async (item) => {
+        const categories = await Promise.all(
+          (await this.getItems_CategoriesByItemId(item.Id)).map(
+            async (itemCategory) =>
+              await this.getCategoryById(itemCategory.Category_id),
+          ),
+        );
+        return [item, ...categories];
+      }),
+    );
+
+    console.log(itemsWithCategories);
+
     return itemsWithCategories;
   }
   async getItemById(Id: number): Promise<Items> {

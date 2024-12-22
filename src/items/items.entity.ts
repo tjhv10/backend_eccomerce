@@ -9,27 +9,27 @@ export class Items {
   @Field(() => Int)
   Id: number;
 
-  @Field()
-  @Column()
+  @Field(() => String)
+  @Column({ nullable: true })
   Name: string;
 
-  @Field()
-  @Column()
+  @Field(() => Date)
+  @Column({ nullable: true })
   Upload_date: Date;
 
-  @Field()
+  @Field(() => String)
   @Column()
   Description: string;
 
-  @Field()
+  @Field(() => String)
   @Column()
   Price: number;
 
-  @Field()
+  @Field(() => String)
   @Column()
   Seller_name: string;
 
-  @Field()
+  @Field(() => String)
   @Column()
   Image_url: string;
 

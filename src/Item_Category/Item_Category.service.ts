@@ -13,7 +13,9 @@ export class Items_CategoriesService {
   async getItems_Categories(): Promise<Items_Categories[]> {
     return await this.item_CategoryRepository.find();
   }
-  async getItems_CategoriesByItemId(id: number): Promise<Items_Categories[]> {
+  async getItems_CategoriesByItemId(
+    id: number,
+  ): Promise<Items_Categories[] | Items_Categories> {
     const found = await this.item_CategoryRepository.find({
       where: { Item_id: id },
     });

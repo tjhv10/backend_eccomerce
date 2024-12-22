@@ -1,16 +1,14 @@
-/* eslint-disable @typescript-eslint/class-name-casing */
-/* eslint-disable @typescript-eslint/camelcase */
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, PrimaryColumn } from 'typeorm';
 
-@ObjectType()
+@ObjectType('items_categories')
 @Entity()
 export class Items_Categories {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   @Field(() => Int)
   Category_id: number;
 
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   @Field(() => Int)
   Item_id: number;
 }

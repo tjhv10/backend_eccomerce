@@ -5,6 +5,6 @@ export class CategoryType {
   @Field(() => ID)
   id: number;
 
-  @Field()
+  @Field(() => String)
   name: string;
 }
