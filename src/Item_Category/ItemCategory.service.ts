@@ -13,15 +13,14 @@ export class ItemsCategoriesService {
   async getItemsCategories(): Promise<ItemsCategories[]> {
     return this.itemCategoryRepository.find();
   }
+
   async getItemsCategoriesByItemId(id: number): Promise<ItemsCategories[]> {
     const found = await this.itemCategoryRepository.find({
       where: { itemId: id },
     });
-
     if (!found || found.length === 0) {
       throw new NotFoundException('Item dosent have categories');
     }
-
     return found;
   }
 }

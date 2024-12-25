@@ -12,7 +12,7 @@ import { Items } from './items.entity';
 import { Category } from '../categories/categories.entity';
 import * as DataLoader from 'dataloader';
 import { Loader } from 'nestjs-dataloader';
-import { ItemCategoryLoader } from '../Item_Category/itemCategorydataloader.module';
+import { ItemCategoryLoader } from '../Item_Category/ItemCategorydataloader.module';
 
 @Resolver(() => Items)
 export class ItemResolver {
@@ -55,9 +55,6 @@ export class ItemResolver {
     @Loader(ItemCategoryLoader)
     categoryLoader: DataLoader<Category['id'], Category>,
   ) {
-    const id = await categoryLoader.load(item.id);
-    console.log(id);
-
-    return id;
+    return categoryLoader.load(item.id);
   }
 }
