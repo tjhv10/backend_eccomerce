@@ -11,14 +11,14 @@ import { ItemStatus } from '../items/items-status.enum';
 import { Items } from './items.entity';
 import { Category } from '../categories/categories.entity';
 import { CategoryService } from '../categories/categories.service';
-import { Items_CategoriesService } from '../Item_Category/Item_Category.service';
+import { ItemsCategoriesService } from '../Item_Category/ItemCategory.service';
 
 @Resolver(() => Items)
 export class ItemResolver {
   constructor(
     private itemService: ItemService,
     private categoryService: CategoryService,
-    private item_category_service: Items_CategoriesService,
+    private itemCategoryService: ItemsCategoriesService,
   ) {}
 
   @Query(() => Items)
@@ -56,13 +56,13 @@ export class ItemResolver {
   async Categories(@Parent() item: Items) {
     const { id } = item;
     const categoriesIds =
-      this.item_category_service.getItems_CategoriesByItemId(id);
-    let category_names = [];
-    category_names = await Promise.all(
+      this.itemCategoryService.getItemsCategoriesByItemId(id);
+    let categoryNames = [];
+    categoryNames = await Promise.all(
       (await categoriesIds).map(async (category) => {
         return this.categoryService.getCategoryById(category.categoryId);
       }),
     );
-    return category_names;
+    return categoryNames;
   }
 }

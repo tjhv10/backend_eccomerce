@@ -4,9 +4,9 @@ import { Items } from '../items/items.entity';
 import { Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
 
 // TODO: why do you need primary column ?
-@ObjectType('items_categories')
+@ObjectType('itemsCategories')
 @Entity()
-export class Items_Categories {
+export class ItemsCategories {
   @ManyToMany(() => Category, (category) => category.id, {
     onDelete: 'CASCADE',
   })
