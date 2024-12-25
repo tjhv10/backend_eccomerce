@@ -1,123 +1,71 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ItemStatus } from './items-status.enum';
+import { ItemStatus } from 'src/items/items-status.enum';
 import { CreateItemDto } from './dto/create-item.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Items } from './items.entity';
-import { Items_Categories } from 'src/Item_Category/Item_Category.entity';
-import { categories } from 'src/categories/categories.entity';
 import { Repository } from 'typeorm';
+import { Items_CategoriesService } from 'src/Item_Category/Item_Category.service';
 
 @Injectable()
 export class ItemService {
   constructor(
     @InjectRepository(Items)
     private itemRepository: Repository<Items>,
+    private item_category_service: Items_CategoriesService,
   ) {}
-  @InjectRepository(Items_Categories)
-  private item_CategoryRepository: Repository<Items_Categories>;
-  @InjectRepository(categories)
-  private categoriesRepository: Repository<categories>;
-  private async deleteItems_CategoriesByItemId(
-    id: number,
-  ): Promise<Items_Categories[]> {
-    const found = await this.item_CategoryRepository.find({
-      where: { Item_id: id },
-    });
-    found.forEach((element) => {
-      this.item_CategoryRepository.delete(element);
-    });
-    if (!found || found.length === 0) {
-      throw new NotFoundException('Not found');
-    }
-    return found;
+
+  async getItems(): Promise<Items[]> {
+    // TODO: don't fetch all hte itmes, filter in DB read about the find() function
+    return (await this.itemRepository.find()).filter(
+      (item) => item.status === ItemStatus.ACTIVE,
+    );
   }
-  private async getItems_CategoriesByItemId(
-    id: number,
-  ): Promise<Items_Categories[]> {
-    const found = await this.item_CategoryRepository.find({
-      where: { Item_id: id },
-    });
-    if (!found || found.length === 0) {
-      throw new NotFoundException('Not found');
-    }
-    return found;
-  }
-  async getCategoryById(Category_Id: number): Promise<categories> {
-    const found = await this.categoriesRepository.findOne({
-      where: { Category_Id },
-    });
+  async getItemById(id: number): Promise<Items> {
+    const found = await this.itemRepository.findOne({ where: { id } });
     if (!found) {
-      throw new NotFoundException('not found');
+      throw new NotFoundException('Item not found by id, id doesnt exist');
     } else return found;
   }
-  async getItems() {
-    const allItems = (await this.itemRepository.find()).filter(
-      (item) => item.Status === ItemStatus.ACTIVE,
-    );
 
-    const itemsWithCategories = await Promise.all(
-      allItems.map(async (item) => {
-        const categories = await Promise.all(
-          (await this.getItems_CategoriesByItemId(item.Id)).map(
-            async (itemCategory) =>
-              await this.getCategoryById(itemCategory.Category_id),
-          ),
-        );
-        return [item, ...categories];
-      }),
-    );
-
-    console.log(itemsWithCategories);
-
-    return itemsWithCategories;
-  }
-  async getItemById(Id: number): Promise<Items> {
-    const found = await this.itemRepository.findOne({ where: { Id } });
+  async isIdExist(id: number): Promise<boolean> {
+    const found = await this.itemRepository.findOne({ where: { id } });
     if (!found) {
-      throw new NotFoundException('not found');
-    } else return found;
-  }
-  async isIdExist(Id: number): Promise<boolean> {
-    const found = await this.itemRepository.findOne({ where: { Id } });
-    if (!found) {
-      throw new NotFoundException('not found');
+      throw new NotFoundException('Item not found by id, id doesnt exist');
     } else return true;
   }
+
   async createItem(createTaskDto: CreateItemDto): Promise<Items> {
-    const { Name, Upload_date, Description, Price, Seller_name, Image_url } =
-      createTaskDto;
     const item = this.itemRepository.create({
-      Name,
-      Upload_date,
-      Description,
-      Price,
-      Seller_name,
-      Image_url,
-      Status: ItemStatus.ACTIVE,
+      ...createTaskDto,
+      status: ItemStatus.ACTIVE,
     });
-    await this.itemRepository.save(item);
+    this.itemRepository.save(item);
     return item;
   }
+
+  // FIXME: read about onDelete cascade for typeorm
   async deleteItem(id: number) {
-    await this.deleteItems_CategoriesByItemId(id);
+    await this.item_category_service.deleteItems_CategoriesByItemId(id);
     const result = await this.itemRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException(`Task with ID "${id}" not found`);
     }
   }
 
+  // FIXME: read more about typeorm and change it
   async updateItemStatus(id: number, status: ItemStatus): Promise<Items> {
     const task = await this.getItemById(id);
 
-    task.Status = status;
+    task.status = status;
     await this.itemRepository.save(task);
 
     return task;
   }
+
   async updateItemPrice(id: number, price: number): Promise<Items> {
     const task = await this.getItemById(id);
 
-    task.Price = price;
+    task.price = price;
     await this.itemRepository.save(task);
 
     return task;

@@ -11,29 +11,30 @@ export class Items_CategoriesService {
   ) {}
 
   async getItems_Categories(): Promise<Items_Categories[]> {
-    return await this.item_CategoryRepository.find();
+    return this.item_CategoryRepository.find();
   }
-  async getItems_CategoriesByItemId(
-    id: number,
-  ): Promise<Items_Categories[] | Items_Categories> {
+  async getItems_CategoriesByItemId(id: number): Promise<Items_Categories[]> {
     const found = await this.item_CategoryRepository.find({
-      where: { Item_id: id },
+      where: { itemId: id },
     });
 
     if (!found || found.length === 0) {
       throw new NotFoundException('Not found');
     }
+
     return found;
   }
+
+  // TODO: use cascade I think
   async deleteItems_CategoriesByItemId(
     id: number,
   ): Promise<Items_Categories[]> {
     const found = await this.item_CategoryRepository.find({
-      where: { Item_id: id },
+      where: { itemId: id },
     });
-    found.forEach((element) => {
-      this.item_CategoryRepository.delete(element);
-    });
+    for (const element of found) {
+      await this.item_CategoryRepository.delete(element);
+    }
     if (!found || found.length === 0) {
       throw new NotFoundException('Not found');
     }

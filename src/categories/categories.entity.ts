@@ -3,12 +3,12 @@ import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
 @ObjectType()
-export class categories {
+export class Category {
   @PrimaryColumn()
   @Field(() => Int)
-  Category_Id: number;
+  id: number;
 
   @Column()
   @Field(() => String)
-  Name: string;
+  name: string;
 }

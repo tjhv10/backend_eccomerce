@@ -1,39 +1,43 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { ItemStatus } from './items-status.enum';
+import { ItemStatus } from 'src/items/items-status.enum';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Category } from 'src/categories/categories.entity';
 
 @ObjectType()
 @Entity()
 export class Items {
   @PrimaryGeneratedColumn()
   @Field(() => Int)
-  Id: number;
+  id: number;
 
   @Field(() => String)
-  @Column({ nullable: true })
-  Name: string;
+  @Column()
+  name: string;
 
   @Field(() => Date)
-  @Column({ nullable: true })
-  Upload_date: Date;
+  @Column()
+  upload_date: Date;
 
   @Field(() => String)
   @Column()
-  Description: string;
+  description: string;
 
   @Field(() => String)
   @Column()
-  Price: number;
+  price: number;
 
   @Field(() => String)
   @Column()
-  Seller_name: string;
+  seller_name: string;
 
   @Field(() => String)
   @Column()
-  Image_url: string;
+  image_url: string;
 
   @Field()
   @Column()
-  Status: ItemStatus;
+  status: ItemStatus;
+
+  @Field(() => [Category])
+  categories: Category[];
 }

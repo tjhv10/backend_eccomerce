@@ -1,12 +1,13 @@
-import { ItemStatus } from '../items-status.enum';
+import { ItemStatus } from 'src/items/items-status.enum';
 
+// TODO: use input instead
 export class CreateItemDto {
-  Id: number;
-  Name: string;
-  Upload_date: Date;
-  Description: string;
-  Price: number;
-  Seller_name: string;
-  Image_url: string;
-  Status: ItemStatus;
+  id: number;
+  name: string;
+  upload_date: Date;
+  description: string;
+  price: number;
+  seller_name: string;
+  image_url: string;
+  status: ItemStatus;
 }

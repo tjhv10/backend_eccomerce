@@ -7,24 +7,20 @@ export class Item_CategoriesResolver {
   constructor(private Items_CategoriesService: Items_CategoriesService) {}
 
   @Query(() => [Items_Categories])
-  async getItems_Categories(): Promise<boolean> {
-    return this.Items_CategoriesService.getItems_Categories()
-      .then(() => true)
-      .catch(() => false);
+  async getItems_Categories(): Promise<Items_Categories[]> {
+    return this.Items_CategoriesService.getItems_Categories();
   }
 
-  @Query(() => Items_Categories)
-  async getItems_CategoriesById(@Args('id') id: number): Promise<boolean> {
-    return this.Items_CategoriesService.getItems_CategoriesByItemId(id)
-      .then(() => true)
-      .catch(() => false);
+  @Query(() => [Items_Categories])
+  async getItems_CategoriesById(
+    @Args('id') id: number,
+  ): Promise<Items_Categories[]> {
+    return this.Items_CategoriesService.getItems_CategoriesByItemId(id);
   }
-  @Mutation(() => Boolean)
+  @Mutation(() => [Items_Categories])
   async deleteItems_CategoriesByItemId(
     @Args('id') id: number,
-  ): Promise<boolean> {
-    return this.Items_CategoriesService.deleteItems_CategoriesByItemId(id)
-      .then(() => true)
-      .catch(() => false);
+  ): Promise<Items_Categories[]> {
+    return this.Items_CategoriesService.deleteItems_CategoriesByItemId(id);
   }
 }

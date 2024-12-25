@@ -1,18 +1,18 @@
 import { Resolver, Query, Args } from '@nestjs/graphql';
 import { CategoryService } from './categories.service';
-import { categories } from './categories.entity';
+import { Category } from './categories.entity';
 
-@Resolver(() => categories)
+@Resolver(() => Category)
 export class CategoriesResolver {
-  constructor(private lessonService: CategoryService) {}
+  constructor(private categoryService: CategoryService) {}
 
-  @Query(() => categories)
-  getCategoryById(@Args('id') id: number) {
-    return this.lessonService.getCategoryById(id);
+  @Query(() => Category)
+  async getCategoryById(@Args('id') id: number) {
+    return this.categoryService.getCategoryById(id);
   }
 
-  @Query(() => [categories])
-  getCategories() {
-    return this.lessonService.getCategories();
+  @Query(() => [Category])
+  async getCategories() {
+    return this.categoryService.getCategories();
   }
 }

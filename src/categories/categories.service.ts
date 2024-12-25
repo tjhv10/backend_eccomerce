@@ -1,20 +1,21 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { categories } from './categories.entity';
+import { Category } from './categories.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class CategoryService {
   constructor(
-    @InjectRepository(categories)
-    private categoriesRepository: Repository<categories>,
+    @InjectRepository(Category)
+    private categoriesRepository: Repository<Category>,
   ) {}
-  async getCategories(): Promise<categories[]> {
-    return await this.categoriesRepository.find();
+  async getCategories(): Promise<Category[]> {
+    return this.categoriesRepository.find();
   }
-  async getCategoryById(Category_Id: number): Promise<categories> {
-    const found = this.categoriesRepository.findOne({ where: { Category_Id } });
+  async getCategoryById(id: number): Promise<Category> {
+    const found = this.categoriesRepository.findOne({
+      where: { id: id },
+    });
     if (!found) {
       throw new NotFoundException('not found');
     } else return found;
