@@ -1,4 +1,4 @@
-import { ItemStatus } from 'src/items/items-status.enum';
+import { ItemStatus } from '../items-status.enum';
 
 // TODO: use input instead
 export class CreateItemDto {

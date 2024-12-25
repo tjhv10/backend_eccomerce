@@ -14,12 +14,12 @@ import { CategoriesResolver } from './categories/category.resolver';
 import { CategoryService } from './categories/categories.service';
 import { Items_CategoriesService } from './Item_Category/Item_Category.service';
 import { Item_CategoriesResolver } from './Item_Category/Item_Category.resolver';
-
-// TODO: use configModule instead of this
-require('dotenv').config();
+import { DataloaderModule } from './dataloader/dataloader.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ envFilePath: '.env' }),
     TypeOrmModule.forRoot({
       type: process.env.DB_TYPE as 'postgres',
       host: process.env.DB_HOST,
@@ -38,6 +38,7 @@ require('dotenv').config();
     ItemModule,
     CategoiesModule,
     Item_CategoriesModule,
+    DataloaderModule,
   ],
   providers: [
     ItemResolver,

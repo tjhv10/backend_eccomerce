@@ -13,12 +13,10 @@ export class ItemService {
     private itemRepository: Repository<Items>,
     private item_category_service: Items_CategoriesService,
   ) {}
-
   async getItems(): Promise<Items[]> {
-    // TODO: don't fetch all hte itmes, filter in DB read about the find() function
-    return (await this.itemRepository.find()).filter(
-      (item) => item.status === ItemStatus.ACTIVE,
-    );
+    return await this.itemRepository.find({
+      where: { status: ItemStatus.ACTIVE },
+    });
   }
   async getItemById(id: number): Promise<Items> {
     const found = await this.itemRepository.findOne({ where: { id } });
@@ -52,22 +50,15 @@ export class ItemService {
     }
   }
 
-  // FIXME: read more about typeorm and change it
   async updateItemStatus(id: number, status: ItemStatus): Promise<Items> {
-    const task = await this.getItemById(id);
-
-    task.status = status;
-    await this.itemRepository.save(task);
-
-    return task;
+    const item = await this.getItemById(id);
+    item.status = status;
+    return this.itemRepository.save(item);
   }
 
   async updateItemPrice(id: number, price: number): Promise<Items> {
-    const task = await this.getItemById(id);
-
-    task.price = price;
-    await this.itemRepository.save(task);
-
-    return task;
+    const item = await this.getItemById(id);
+    item.price = price;
+    return this.itemRepository.save(item);
   }
 }

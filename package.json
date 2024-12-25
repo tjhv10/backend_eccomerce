@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@apollo/gateway": "^2.9.3",
     "@nestjs/apollo": "^12.2.2",
     "@nestjs/class-validator": "^0.13.4",
     "@nestjs/common": "^10.0.0",
@@ -36,7 +37,8 @@
     "next": "^15.1.2",
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "ts-morph": "^24.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

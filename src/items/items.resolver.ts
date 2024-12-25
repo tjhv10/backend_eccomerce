@@ -7,11 +7,11 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { ItemService } from './items.service';
-import { ItemStatus } from 'src/items/items-status.enum';
+import { ItemStatus } from '../items/items-status.enum';
 import { Items } from './items.entity';
-import { Category } from 'src/categories/categories.entity';
-import { CategoryService } from 'src/categories/categories.service';
-import { Items_CategoriesService } from 'src/Item_Category/Item_Category.service';
+import { Category } from '../categories/categories.entity';
+import { CategoryService } from '../categories/categories.service';
+import { Items_CategoriesService } from '../Item_Category/Item_Category.service';
 
 @Resolver(() => Items)
 export class ItemResolver {
@@ -22,7 +22,7 @@ export class ItemResolver {
   ) {}
 
   @Query(() => Items)
-  async getItemById(@Args('id') id: number) {
+  async getItemById(@Args('id') id: number): Promise<Items> {
     return this.itemService.getItemById(id);
   }
 
