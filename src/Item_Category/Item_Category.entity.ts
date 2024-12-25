@@ -7,13 +7,15 @@ import { Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
 @ObjectType('items_categories')
 @Entity()
 export class Items_Categories {
-  @ManyToMany(() => Category, (category) => category.id)
+  @ManyToMany(() => Category, (category) => category.id, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable()
   @PrimaryColumn()
   @Field(() => Int)
   categoryId: number;
 
-  @ManyToMany(() => Items, (item) => item.id)
+  @ManyToMany(() => Items, (item) => item.id, { onDelete: 'CASCADE' })
   @JoinTable()
   @PrimaryColumn()
   @Field(() => Int)

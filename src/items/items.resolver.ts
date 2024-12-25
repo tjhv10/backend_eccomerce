@@ -37,7 +37,7 @@ export class ItemResolver {
   }
 
   @Mutation(() => Items)
-  deleteItems_CategoriesByItemId(@Args('id') id: number) {
+  deleteItem(@Args('id') id: number) {
     return this.itemService.deleteItem(id);
   }
 
@@ -58,13 +58,11 @@ export class ItemResolver {
     const categoriesIds =
       this.item_category_service.getItems_CategoriesByItemId(id);
     let category_names = [];
-    for (let i = 0; i < (await categoriesIds).length; i++) {
-      category_names.push(
-        await this.categoryService.getCategoryById(
-          (await categoriesIds)[i].categoryId,
-        ),
-      );
-    }
+    category_names = await Promise.all(
+      (await categoriesIds).map(async (category) => {
+        return this.categoryService.getCategoryById(category.categoryId);
+      }),
+    );
     return category_names;
   }
 }

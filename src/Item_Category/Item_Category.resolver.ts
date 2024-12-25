@@ -17,10 +17,4 @@ export class Item_CategoriesResolver {
   ): Promise<Items_Categories[]> {
     return this.Items_CategoriesService.getItems_CategoriesByItemId(id);
   }
-  @Mutation(() => [Items_Categories])
-  async deleteItems_CategoriesByItemId(
-    @Args('id') id: number,
-  ): Promise<Items_Categories[]> {
-    return this.Items_CategoriesService.deleteItems_CategoriesByItemId(id);
-  }
 }

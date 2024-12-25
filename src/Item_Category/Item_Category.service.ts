@@ -24,20 +24,4 @@ export class Items_CategoriesService {
 
     return found;
   }
-
-  // TODO: use cascade I think
-  async deleteItems_CategoriesByItemId(
-    id: number,
-  ): Promise<Items_Categories[]> {
-    const found = await this.item_CategoryRepository.find({
-      where: { itemId: id },
-    });
-    for (const element of found) {
-      await this.item_CategoryRepository.delete(element);
-    }
-    if (!found || found.length === 0) {
-      throw new NotFoundException('Not found');
-    }
-    return found;
-  }
 }

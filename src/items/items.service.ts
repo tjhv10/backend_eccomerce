@@ -4,14 +4,12 @@ import { CreateItemDto } from './dto/create-item.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Items } from './items.entity';
 import { Repository } from 'typeorm';
-import { Items_CategoriesService } from 'src/Item_Category/Item_Category.service';
 
 @Injectable()
 export class ItemService {
   constructor(
     @InjectRepository(Items)
     private itemRepository: Repository<Items>,
-    private item_category_service: Items_CategoriesService,
   ) {}
   async getItems(): Promise<Items[]> {
     return await this.itemRepository.find({
@@ -41,13 +39,13 @@ export class ItemService {
     return item;
   }
 
-  // FIXME: read about onDelete cascade for typeorm
   async deleteItem(id: number) {
-    await this.item_category_service.deleteItems_CategoriesByItemId(id);
+    const item = this.getItemById(id);
     const result = await this.itemRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException(`Task with ID "${id}" not found`);
     }
+    return item;
   }
 
   async updateItemStatus(id: number, status: ItemStatus): Promise<Items> {
