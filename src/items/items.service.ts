@@ -30,14 +30,14 @@ export class ItemService {
     } else return true;
   }
 
-  async createItem(createTaskDto: CreateItemDto): Promise<Items> {
-    const item = this.itemRepository.create({
-      ...createTaskDto,
-      status: ItemStatus.ACTIVE,
-    });
-    this.itemRepository.save(item);
-    return item;
-  }
+  // async createItem(createTaskDto: CreateItemDto): Promise<Items> {
+  //   const item = this.itemRepository.create({
+  //     ...createTaskDto,
+  //     status: ItemStatus.ACTIVE,
+  //   });
+  //   this.itemRepository.save(item);
+  //   return item;
+  // }
 
   async deleteItem(id: number) {
     const item = this.getItemById(id);

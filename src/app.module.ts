@@ -2,19 +2,15 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ItemModule } from './items/items.module';
-import { ApolloDriver } from '@nestjs/apollo';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { CategoiesModule } from './categories/categories.module';
 import { ItemCategoriesModule } from './Item_Category/ItemCategory.module';
-import { ItemResolver } from './items/items.resolver';
-import { ItemService } from './items/items.service';
 import { Items } from './items/items.entity';
 import { Category } from './categories/categories.entity';
 import { ItemsCategories } from './Item_Category/ItemCategory.entity';
-import { CategoriesResolver } from './categories/category.resolver';
-import { CategoryService } from './categories/categories.service';
-import { ItemsCategoriesService } from './Item_Category/ItemCategory.service';
-import { ItemCategoriesResolver } from './Item_Category/ItemCategory.resolver';
 import { ConfigModule } from '@nestjs/config';
+import { DataloaderModule } from './dataloader/dataloader.module';
+import { DataloaderService } from './dataloader/dataloader.service';
 
 @Module({
   imports: [
@@ -30,21 +26,23 @@ import { ConfigModule } from '@nestjs/config';
       synchronize: true,
       entities: [Items, Category, ItemsCategories],
     }),
-    GraphQLModule.forRoot({
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: true,
+      imports: [DataloaderModule],
+      useFactory: (dataloaderService: DataloaderService) => {
+        return {
+          autoSchemaFile: true,
+          context: () => ({
+            loaders: dataloaderService.getLoaders(),
+          }),
+        };
+      },
+      inject: [DataloaderService],
     }),
     ItemModule,
     CategoiesModule,
     ItemCategoriesModule,
-  ],
-  providers: [
-    ItemResolver,
-    ItemService,
-    CategoriesResolver,
-    CategoryService,
-    ItemCategoriesResolver,
-    ItemsCategoriesService,
+    DataloaderModule,
   ],
 })
 export class AppModule {}

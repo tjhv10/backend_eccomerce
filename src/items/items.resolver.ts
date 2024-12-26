@@ -5,17 +5,17 @@ import {
   Mutation,
   ResolveField,
   Parent,
+  Context,
 } from '@nestjs/graphql';
 import { ItemService } from './items.service';
 import { ItemStatus } from '../items/items-status.enum';
 import { Items } from './items.entity';
-import { Category } from '../categories/categories.entity';
-import * as DataLoader from 'dataloader';
-import { Loader } from 'nestjs-dataloader';
-import { ItemCategoryLoader } from '../dataloader/ItemCategorydataloader.service';
+import { IDataloaders } from '../dataloader/dataloader.interface';
+import { ItemsCategoriesService } from 'src/Item_Category/ItemCategory.service';
 
 @Resolver(() => Items)
 export class ItemResolver {
+  itemCategoryService: ItemsCategoriesService;
   constructor(private itemService: ItemService) {}
 
   @Query(() => Items)
@@ -48,13 +48,17 @@ export class ItemResolver {
     return this.itemService.updateItemStatus(id, status);
   }
 
-  // TODO: add dataloader
-  @ResolveField(() => [Category])
-  async Categories(
+  @ResolveField('Categories', () => [String])
+  async getFriends(
     @Parent() item: Items,
-    @Loader(ItemCategoryLoader)
-    categoryLoader: DataLoader<Category['id'], Category>,
+    @Context() { loaders }: { loaders: IDataloaders },
   ) {
-    return categoryLoader.load(item.id);
+    const { id } = item;
+    const categoriesIds =
+      this.itemCategoryService.getItemsCategoriesByItemId(id);
+
+    // console.log(categoriesIds);
+
+    return loaders.itemCategoryLoader.load(id);
   }
 }

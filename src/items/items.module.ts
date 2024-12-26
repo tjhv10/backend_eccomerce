@@ -1,16 +1,18 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Items } from './items.entity';
-import { APP_INTERCEPTOR } from '@nestjs/core';
-import { DataLoaderInterceptor } from 'nestjs-dataloader';
+import { DataloaderModule } from 'src/dataloader/dataloader.module';
+import { ItemResolver } from './items.resolver';
+import { ItemService } from './items.service';
+import { ItemsCategories } from 'src/Item_Category/ItemCategory.entity';
+import { ItemCategoriesModule } from 'src/Item_Category/ItemCategory.module';
 
 @Module({
-  providers: [
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: DataLoaderInterceptor,
-    },
+  imports: [
+    ItemCategoriesModule,
+    TypeOrmModule.forFeature([Items, ItemsCategories]),
+    DataloaderModule,
   ],
-  imports: [TypeOrmModule.forFeature([Items])],
+  providers: [ItemResolver, ItemService],
 })
 export class ItemModule {}
