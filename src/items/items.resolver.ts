@@ -12,7 +12,7 @@ import { Items } from './items.entity';
 import { Category } from '../categories/categories.entity';
 import * as DataLoader from 'dataloader';
 import { Loader } from 'nestjs-dataloader';
-import { ItemCategoryLoader } from '../Item_Category/ItemCategorydataloader.module';
+import { ItemCategoryLoader } from '../dataloader/ItemCategorydataloader.module';
 
 @Resolver(() => Items)
 export class ItemResolver {
