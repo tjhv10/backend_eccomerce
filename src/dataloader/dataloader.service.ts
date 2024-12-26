@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import * as DataLoader from 'dataloader';
+import DataLoader from 'dataloader';
 import { IDataloaders } from './dataloader.interface';
 import { ItemsCategoriesService } from 'src/Item_Category/ItemCategory.service';
 
@@ -10,14 +10,14 @@ export class DataloaderService {
   ) {}
 
   getLoaders(): IDataloaders {
-    const itemCategoryLoader = this._createNamesLoader();
+    const itemCategoryLoader = this._createNamessLoader();
     return {
       itemCategoryLoader,
     };
   }
 
-  private _createNamesLoader() {
-    return new DataLoader<number, String>(
+  private _createNamessLoader() {
+    return new DataLoader<number, String[]>(
       async (keys: readonly number[]) =>
         await this.itemsCategoriesService.getNamesOfCategoriesByBatch(
           keys as number[],

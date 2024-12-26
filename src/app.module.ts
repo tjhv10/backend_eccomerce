@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ItemModule } from './items/items.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { CategoiesModule } from './categories/categories.module';
+import { CatergoyModule } from './categories/categories.module';
 import { ItemCategoriesModule } from './Item_Category/ItemCategory.module';
 import { Items } from './items/items.entity';
 import { Category } from './categories/categories.entity';
@@ -40,7 +40,7 @@ import { DataloaderService } from './dataloader/dataloader.service';
       inject: [DataloaderService],
     }),
     ItemModule,
-    CategoiesModule,
+    CatergoyModule,
     ItemCategoriesModule,
     DataloaderModule,
   ],

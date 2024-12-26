@@ -11,11 +11,9 @@ import { ItemService } from './items.service';
 import { ItemStatus } from '../items/items-status.enum';
 import { Items } from './items.entity';
 import { IDataloaders } from '../dataloader/dataloader.interface';
-import { ItemsCategoriesService } from 'src/Item_Category/ItemCategory.service';
 
 @Resolver(() => Items)
 export class ItemResolver {
-  itemCategoryService: ItemsCategoriesService;
   constructor(private itemService: ItemService) {}
 
   @Query(() => Items)
@@ -54,11 +52,6 @@ export class ItemResolver {
     @Context() { loaders }: { loaders: IDataloaders },
   ) {
     const { id } = item;
-    const categoriesIds =
-      this.itemCategoryService.getItemsCategoriesByItemId(id);
-
-    // console.log(categoriesIds);
-
     return loaders.itemCategoryLoader.load(id);
   }
 }
