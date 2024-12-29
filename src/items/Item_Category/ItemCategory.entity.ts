@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Category } from '../categories/categories.entity';
-import { Items } from '../items/items.entity';
+import { Category } from '../../../categories/categories.entity';
+import { Items } from '../../items/items.entity';
 import { Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
 import { IsInt } from 'class-validator';
 
