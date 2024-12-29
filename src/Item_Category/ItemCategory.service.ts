@@ -29,6 +29,7 @@ export class ItemsCategoriesService {
 
     return found;
   }
+
   public async getAllNamesByCategoryIds(
     categoryIds: readonly number[],
   ): Promise<Category[]> {
@@ -38,6 +39,7 @@ export class ItemsCategoriesService {
       }),
     );
   }
+
   public async getNamesOfCategoriesByBatch(
     categoryIds: readonly number[],
   ): Promise<Category[][]> {

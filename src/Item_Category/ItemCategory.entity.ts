@@ -4,7 +4,6 @@ import { Items } from '../items/items.entity';
 import { Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
 import { IsInt } from 'class-validator';
 
-// TODO: why do you need primary column ?
 @ObjectType('itemsCategories')
 @Entity()
 export class ItemsCategories {
