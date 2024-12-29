@@ -12,7 +12,7 @@ import { Items } from './items.entity';
 import { IDataloaders } from '../dataloader/dataloader.interface';
 import { Category } from 'src/categories/categories.entity';
 import { ItemStatus } from './items-status.enum';
-
+// import { ItemStatus } from '../../../item_status';
 @Resolver(() => Items)
 export class ItemResolver {
   constructor(private itemService: ItemService) {}
