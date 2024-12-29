@@ -12,7 +12,7 @@ export class Items {
   @PrimaryColumn()
   @Field(() => Int)
   id: number;
-  s;
+
   @Field(() => String)
   @Column()
   name: string;
