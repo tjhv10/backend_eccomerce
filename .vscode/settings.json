@@ -14,5 +14,6 @@
   },
   "search.useIgnoreFiles": true,
   "search.useGlobalIgnoreFiles": true,
-  "search.useParentIgnoreFiles": true
+  "search.useParentIgnoreFiles": true,
+  "liveServer.settings.multiRootWorkspaceName": "backend_eccomerce"
 }

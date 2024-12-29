@@ -1,9 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ItemStatus } from 'src/items/items-status.enum';
-import { CreateItemDto } from './dto/create-item.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Items } from './items.entity';
 import { Repository } from 'typeorm';
+import { ItemStatus } from './items-status.enum';
 
 @Injectable()
 export class ItemService {

@@ -1,5 +1,5 @@
-import { ItemStatus } from '../items-status.enum';
 import { InputType, Field, Int } from '@nestjs/graphql';
+import { ItemStatus } from '../items-status.enum';
 
 @InputType()
 export class CreateItemDto {

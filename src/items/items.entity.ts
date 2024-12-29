@@ -1,12 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { ItemStatus } from 'src/items/items-status.enum';
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Category } from 'src/categories/categories.entity';
+import { ItemStatus } from './items-status.enum';
+import { IsInt } from 'class-validator';
 
 @ObjectType()
 @Entity()
 export class Items {
-  @PrimaryGeneratedColumn()
+  @IsInt()
+  @PrimaryColumn()
   @Field(() => Int)
   id: number;
 

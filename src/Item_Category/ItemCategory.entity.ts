@@ -2,6 +2,7 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Category } from '../categories/categories.entity';
 import { Items } from '../items/items.entity';
 import { Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
+import { IsInt } from 'class-validator';
 
 // TODO: why do you need primary column ?
 @ObjectType('itemsCategories')
@@ -12,11 +13,13 @@ export class ItemsCategories {
   })
   @JoinTable()
   @PrimaryColumn()
+  @IsInt()
   @Field(() => Int)
   categoryId: number;
 
   @ManyToMany(() => Items, (item) => item.id, { onDelete: 'CASCADE' })
   @JoinTable()
+  @IsInt()
   @PrimaryColumn()
   @Field(() => Int)
   itemId: number;
