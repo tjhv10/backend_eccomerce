@@ -50,4 +50,4 @@ import { DataloaderService } from './dataloader/dataloader.service';
     DataloaderModule,
   ],
 })
-export class ItemsModule {}
+export class AppModule {}
