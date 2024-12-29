@@ -11,6 +11,7 @@ import { ItemService } from './items.service';
 import { ItemStatus } from '../items/items-status.enum';
 import { Items } from './items.entity';
 import { IDataloaders } from '../dataloader/dataloader.interface';
+import { Category } from 'src/categories/categories.entity';
 
 @Resolver(() => Items)
 export class ItemResolver {
@@ -46,12 +47,11 @@ export class ItemResolver {
     return this.itemService.updateItemStatus(id, status);
   }
 
-  @ResolveField('Categories', () => [String])
+  @ResolveField('Categories', () => [Category])
   async getFriends(
     @Parent() item: Items,
     @Context() { loaders }: { loaders: IDataloaders },
   ) {
-    const { id } = item;
-    return loaders.itemCategoryLoader.load(id);
+    return loaders.itemCategoryLoader.load(item.id);
   }
 }

@@ -4,17 +4,17 @@ import { ItemsCategoriesService } from './ItemCategory.service';
 
 @Resolver(() => ItemsCategories)
 export class ItemCategoriesResolver {
-  constructor(private ItemsCategoriesService: ItemsCategoriesService) {}
+  constructor(private itemsCategoriesService: ItemsCategoriesService) {}
 
   @Query(() => [ItemsCategories])
   async getItemsCategories(): Promise<ItemsCategories[]> {
-    return this.ItemsCategoriesService.getItemsCategories();
+    return this.itemsCategoriesService.getItemsCategories();
   }
 
   @Query(() => [ItemsCategories])
   async getItemsCategoriesById(
     @Args('id') id: number,
   ): Promise<ItemsCategories[]> {
-    return this.ItemsCategoriesService.getItemsCategoriesByItemId(id);
+    return this.itemsCategoriesService.getItemsCategoriesByItemId(id);
   }
 }

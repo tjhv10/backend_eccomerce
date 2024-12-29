@@ -19,31 +19,26 @@ export class ItemService {
   async getItemById(id: number): Promise<Items> {
     const found = await this.itemRepository.findOne({ where: { id } });
     if (!found) {
-      throw new NotFoundException('Item not found by id, id doesnt exist');
+      throw new NotFoundException(
+        `Item not found by id "${id}", id doesnt exist`,
+      );
     } else return found;
   }
 
   async isIdExist(id: number): Promise<boolean> {
     const found = await this.itemRepository.findOne({ where: { id } });
     if (!found) {
-      throw new NotFoundException('Item not found by id, id doesnt exist');
+      throw new NotFoundException(
+        `Item not found by id "${id}", id doesnt exist`,
+      );
     } else return true;
   }
-
-  // async createItem(createTaskDto: CreateItemDto): Promise<Items> {
-  //   const item = this.itemRepository.create({
-  //     ...createTaskDto,
-  //     status: ItemStatus.ACTIVE,
-  //   });
-  //   this.itemRepository.save(item);
-  //   return item;
-  // }
 
   async deleteItem(id: number) {
     const item = this.getItemById(id);
     const result = await this.itemRepository.delete(id);
     if (result.affected === 0) {
-      throw new NotFoundException(`Task with ID "${id}" not found`);
+      throw new NotFoundException(`Item with ID "${id}" not found`);
     }
     return item;
   }
