@@ -25,7 +25,7 @@ import { IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway';
             url,
             willSendRequest({ request, context }) {
               request.http.headers.set(
-                'user',
+                'items',
                 context.user ? JSON.stringify(context.user) : null,
               );
             },

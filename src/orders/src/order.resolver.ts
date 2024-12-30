@@ -7,17 +7,19 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { OrderService } from './order.service';
-import { Items } from '../../items/src/item/items.entity';
-import { CreatePostInput } from './dto/create-order.input';
+import { Or } from 'typeorm';
+import { Order } from './entities/order.entity';
+import { Items } from './entities/items.entity';
+// import { Items } from '../../items/src/item/items.entity';
 
 @Resolver(() => Items)
 export class OrderResolver {
   constructor(private readonly orderService: OrderService) {}
 
-  @Mutation(() => Items)
-  createPost(@Args('createPostInput') createPostInput: CreatePostInput) {
-    return this.orderService.create(createPostInput);
-  }
+  // @Mutation(() => Items)
+  // createPost(@Args('createPostInput') createPostInput: CreatePostInput) {
+  //   return this.orderService.create(createPostInput);
+  // }
 
   // @Query(() => [Items], { name: 'posts' })
   // findAll(@CurrentUser() user: User) {
