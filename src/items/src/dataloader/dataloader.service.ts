@@ -18,7 +18,6 @@ export class DataloaderService {
   }
 
   private _createNamesLoader() {
-    let as;
     return new DataLoader<number, Category[]>(
       async (keys: readonly number[]) => {
         const categories =

@@ -1,9 +1,9 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Category } from '../category/categories.entity';
 import { ItemStatus } from './items-status.enum';
 // import { ItemStatus } from '../../../item_status';
 import { IsInt } from 'class-validator';
+import { Category } from '../category/categories.entity';
 
 @ObjectType()
 @Entity()

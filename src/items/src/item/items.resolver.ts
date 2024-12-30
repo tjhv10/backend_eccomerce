@@ -7,12 +7,11 @@ import {
   Parent,
   Context,
 } from '@nestjs/graphql';
-
-import { Category } from '../src/category/categories.entity';
-import { Items } from '../src/item/items.entity';
-import { ItemService } from '../src/item/items.service';
-import { ItemStatus } from '../src/item/items-status.enum';
-import { IDataloaders } from '../src/dataloader/dataloader.interface';
+import { ItemService } from './items.service';
+import { Items } from './items.entity';
+import { IDataloaders } from '../dataloader/dataloader.interface';
+import { ItemStatus } from './items-status.enum';
+import { Category } from '../category/categories.entity';
 // import { ItemStatus } from '../../../item_status';
 @Resolver(() => Items)
 export class ItemResolver {

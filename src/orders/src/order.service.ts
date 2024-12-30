@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePostInput } from './dto/create-post.input';
-import { Post } from './entities/post.entity';
+import { CreatePostInput } from './dto/create-order.input';
+import { Order } from './entities/order.entity';
 
 @Injectable()
-export class PostsService {
-  private readonly posts: Post[] = [];
+export class OrderService {
+  private readonly posts: Order[] = [];
 
   create(createPostInput: CreatePostInput) {
     this.posts.push(createPostInput);
@@ -19,7 +19,7 @@ export class PostsService {
     return this.posts.find((post) => post.id === id);
   }
 
-  forAuthor(authorId: string) {
-    return this.posts.filter((post) => post.authorId === authorId);
-  }
+  // forAuthor(authorId: string) {
+  //   return this.posts.filter((post) => post.authorId === authorId);
+  // }
 }
