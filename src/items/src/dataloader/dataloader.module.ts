@@ -5,7 +5,7 @@ import { ItemsCategories } from '../Item_Category/ItemCategory.entity';
 import { ItemCategoriesModule } from '../Item_Category/ItemCategory.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ItemsCategories]), ItemCategoriesModule],
+  imports: [ItemCategoriesModule],
   providers: [DataloaderService],
   exports: [DataloaderService],
 })

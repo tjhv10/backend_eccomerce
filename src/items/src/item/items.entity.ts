@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToMany, JoinTable } from 'typeorm';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { ItemStatus } from './items-status.enum';
 // import { ItemStatus } from '../../../item_status';
@@ -41,6 +41,12 @@ export class Items {
   @Column()
   status: ItemStatus;
 
+  @ManyToMany(() => Category)
+  @JoinTable({
+    name: 'items_categories',
+    joinColumn: { name: 'itemId' },
+    inverseJoinColumn: { name: 'categoryId' },
+  })
   @Field(() => [Category])
   categories: Category[];
 }

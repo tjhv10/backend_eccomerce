@@ -10,14 +10,12 @@ export class ItemsCategories {
   @ManyToMany(() => Category, (category: Category) => category.id, {
     onDelete: 'CASCADE',
   })
-  @JoinTable()
   @PrimaryColumn()
   @IsInt()
   @Field(() => Int)
   categoryId: number;
 
   @ManyToMany(() => Items, (item: Items) => item.id, { onDelete: 'CASCADE' })
-  @JoinTable()
   @IsInt()
   @PrimaryColumn()
   @Field(() => Int)

@@ -21,8 +21,10 @@ import {
       },
     }),
     ItemCategoriesModule,
-    TypeOrmModule.forFeature([ItemsCategories]),
+    TypeOrmModule.forFeature([Items, ItemsCategories]),
     DataloaderModule,
   ],
+  providers: [ItemResolver, ItemService],
+  exports: [ItemService],
 })
 export class ItemModule {}

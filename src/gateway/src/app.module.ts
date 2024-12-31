@@ -20,17 +20,6 @@ import { IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway';
             },
           ],
         }),
-        buildService({ url }) {
-          return new RemoteGraphQLDataSource({
-            url,
-            willSendRequest({ request, context }) {
-              request.http.headers.set(
-                'items',
-                context.user ? JSON.stringify(context.user) : null,
-              );
-            },
-          });
-        },
       },
     }),
   ],
