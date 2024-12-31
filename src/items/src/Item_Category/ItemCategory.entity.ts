@@ -1,23 +1,27 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Items } from '../item/items.entity';
-import { Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 import { IsInt } from 'class-validator';
 import { Category } from '../category/categories.entity';
 
 @ObjectType('itemsCategories')
-@Entity()
+@Entity('items_categories')
 export class ItemsCategories {
-  @ManyToMany(() => Category, (category: Category) => category.id, {
+  @ManyToOne(() => Category, (category: Category) => category.id, {
     onDelete: 'CASCADE',
   })
-  @PrimaryColumn()
   @IsInt()
-  @Field(() => Int)
+  @Field(() => Category)
+  category: Category;
+
+  @PrimaryColumn()
+  itemId: number;
+
+  @PrimaryColumn()
   categoryId: number;
 
-  @ManyToMany(() => Items, (item: Items) => item.id, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Items, (item: Items) => item.id, { onDelete: 'CASCADE' })
   @IsInt()
-  @PrimaryColumn()
-  @Field(() => Int)
-  itemId: number;
+  @Field(() => Items)
+  item: Items;
 }

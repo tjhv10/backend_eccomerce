@@ -47,8 +47,8 @@ export class ItemResolver {
     return this.itemService.updateItemStatus(id, status);
   }
 
-  @ResolveField('Categories', () => [Category])
-  async getFriends(
+  @ResolveField('categories', () => [Category])
+  async getCategories(
     @Parent() item: Items,
     @Context() { loaders }: { loaders: IDataloaders },
   ) {

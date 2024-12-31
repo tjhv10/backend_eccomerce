@@ -15,7 +15,7 @@ export class OrderService {
     return this.posts;
   }
 
-  findOne(id: string) {
+  findOne(id: number) {
     return this.posts.find((post) => post.id === id);
   }
 

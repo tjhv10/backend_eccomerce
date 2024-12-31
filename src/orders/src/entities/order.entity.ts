@@ -1,10 +1,9 @@
-import { Directive, Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-@Directive('@key(fields: "id")')
 export class Order {
   @Field(() => ID)
-  id: string;
+  id: number;
 
   @Field(() => Date)
   order_date: Date;

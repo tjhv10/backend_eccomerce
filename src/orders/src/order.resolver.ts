@@ -28,7 +28,7 @@ export class OrderResolver {
   // }
 
   @Query(() => Items, { name: 'post' })
-  findOne(@Args('id') id: string) {
+  findOne(@Args('id') id: number) {
     return this.orderService.findOne(id);
   }
 

@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Entity, Column, PrimaryColumn, ManyToMany, JoinTable } from 'typeorm';
+import { Directive, Field, ID, Int, ObjectType } from '@nestjs/graphql';
 import { ItemStatus } from '../entities/items-status.enum';
 // import { ItemStatus } from '../../../item_status';
 import { IsInt } from 'class-validator';
@@ -7,6 +7,8 @@ import { Category } from '../entities/categories.entity';
 
 @ObjectType()
 @Entity()
+@Directive('@key(fields: "id")')
+@Directive('@shareable')
 export class Items {
   @IsInt()
   @PrimaryColumn()
@@ -41,6 +43,12 @@ export class Items {
   @Column()
   status: ItemStatus;
 
+  @ManyToMany(() => Category)
+  @JoinTable({
+    name: 'items_categories',
+    joinColumn: { name: 'itemId' },
+    inverseJoinColumn: { name: 'categoryId' },
+  })
   @Field(() => [Category])
   categories: Category[];
 }

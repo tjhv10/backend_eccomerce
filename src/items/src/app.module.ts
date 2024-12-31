@@ -81,7 +81,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ItemModule } from './item/items.module';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import {
+  ApolloDriver,
+  ApolloDriverConfig,
+  ApolloFederationDriver,
+  ApolloFederationDriverConfig,
+} from '@nestjs/apollo';
 import { CatergoyModule } from './category/categories.module';
 import { ItemCategoriesModule } from './Item_Category/ItemCategory.module';
 import { ConfigModule } from '@nestjs/config';
@@ -105,12 +110,14 @@ import { ItemsCategories } from './Item_Category/ItemCategory.entity';
       synchronize: true,
       entities: [Items, Category, ItemsCategories],
     }),
-    GraphQLModule.forRootAsync<ApolloDriverConfig>({
-      driver: ApolloDriver,
+    GraphQLModule.forRootAsync<ApolloFederationDriverConfig>({
+      driver: ApolloFederationDriver,
       imports: [DataloaderModule],
       useFactory: (dataloaderService: DataloaderService) => {
         return {
-          autoSchemaFile: true,
+          autoSchemaFile: {
+            federation: 2,
+          },
           context: () => ({
             loaders: dataloaderService.getLoaders(),
           }),

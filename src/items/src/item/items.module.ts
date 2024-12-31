@@ -6,25 +6,13 @@ import { ItemResolver } from './items.resolver';
 import { ItemService } from './items.service';
 import { ItemsCategories } from '../Item_Category/ItemCategory.entity';
 import { ItemCategoriesModule } from '../Item_Category/ItemCategory.module';
-import { GraphQLModule } from '@nestjs/graphql';
-import {
-  ApolloFederationDriver,
-  ApolloFederationDriverConfig,
-} from '@nestjs/apollo';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
-      driver: ApolloFederationDriver,
-      autoSchemaFile: {
-        federation: 2,
-      },
-    }),
     ItemCategoriesModule,
     TypeOrmModule.forFeature([Items, ItemsCategories]),
     DataloaderModule,
   ],
   providers: [ItemResolver, ItemService],
-  exports: [ItemService],
 })
 export class ItemModule {}
