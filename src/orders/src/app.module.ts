@@ -6,6 +6,10 @@ import {
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
+import { OrderModule } from './orders/order.module';
+import { ItemsOrderModule } from './items_order/itemsOrder.module';
+import { DataloaderModule } from './dataloader/dataloader.module';
+import { DataloaderService } from './dataloader/dataloader.service';
 
 @Module({
   imports: [
@@ -36,6 +40,8 @@ import { ConfigModule } from '@nestjs/config';
       },
       inject: [DataloaderService],
     }),
+    OrderModule,
+    ItemsOrderModule,
   ],
 })
 export class AppModule {}

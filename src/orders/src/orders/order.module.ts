@@ -1,21 +1,11 @@
 import { Module } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { OrderResolver } from './order.resolver';
-import { GraphQLModule } from '@nestjs/graphql';
-import {
-  ApolloFederationDriver,
-  ApolloFederationDriverConfig,
-} from '@nestjs/apollo';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Order } from './entities/order.entity';
 
 @Module({
-  imports: [
-    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
-      driver: ApolloFederationDriver,
-      autoSchemaFile: {
-        federation: 2,
-      },
-    }),
-  ],
-  providers: [OrderResolver, OrderService],
+  imports: [TypeOrmModule.forFeature([Order])],
+  providers: [OrderService, OrderResolver],
 })
 export class OrderModule {}
